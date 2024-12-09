@@ -1,0 +1,9 @@
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name albartol.42.fr;
+
+    ssl_certificate     certs/nginx.crt;
+    ssl_certificate_key keys/nginx.key;
+}

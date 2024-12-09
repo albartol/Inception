@@ -1,0 +1,58 @@
+name: inception
+
+deploy:
+  restart_policy:
+    condition: on-failure
+    delay: 1s
+    window: 25s
+
+include:
+  env_file:
+
+networks:
+  cont_net:
+    name: inception
+
+volumes:
+  db_data:
+    name: "mariadb_data"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $(HOME)/data/mariadb
+  wp_data:
+    name: "wordpress_data"
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $(HOME)/data/wordpress
+
+services:
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx
+    volumes:
+      - wordpress_data:/server/wp_data
+    ports:
+      - 443:443
+    networks:
+      - inception
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    image: wordpress
+    volumes:
+      - wordpress_data:/server/wp_data
+    networks:
+      - inception
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    image: mariadb
+    volumes:
+      - mariadb_data:/server/wp_data
+    networks:
+      - inception
