@@ -1,5 +1,5 @@
 #base image
-FROM alpine:3.20
+FROM alpine:3.21
 
 #directory for the following commands
 WORKDIR /server
@@ -10,6 +10,6 @@ RUN apk -U upgrade && apk add nginx openssl
 #port used as entrypoint
 EXPOSE 443
 
-COPY conf/conf_file conf_file
+COPY conf/nginx.conf nginx.conf
 
 ENTRYPOINT [ "nginx", "-g", "daemon off;"]
