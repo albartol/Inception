@@ -20,14 +20,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: $(HOME)/data/mariadb_data
+      device: ${HOME}/data/mariadb_data
   wp_data:
     name: "wordpress_data"
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: $(HOME)/data/wordpress_data
+      device: ${HOME}/data/wordpress_data
 
 services:
   nginx:
