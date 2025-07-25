@@ -33,8 +33,9 @@ logs:
 
 clean: down
 	rm -rf $(HOME)/data
-	docker volume rm $$(docker volume ls -q)
-	docker rmi $$(docker images -aq)
+	docker-clean
+# 	docker volume rm $$(docker volume ls -q)
+# 	docker rmi $$(docker images -aq)
 
 re: clean all
 

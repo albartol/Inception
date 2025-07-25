@@ -1,6 +1,7 @@
 #base image
 FROM alpine:3.21
 
+#port used as entrypoint
 EXPOSE 3306
 
 #directory for the following commands
@@ -23,4 +24,4 @@ RUN mv database.sql database-env
 
 RUN envsubst < database-env > database.sql
 
-ENTRYPOINT [ "mariadbd --user=mysql --init-file=/server/database.sql"]
+ENTRYPOINT [ "mariadbd", "--user=mysql", "--init-file=/server/database.sql" ]

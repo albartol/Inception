@@ -20,14 +20,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: $(HOME)/data/mariadb
+      device: $(HOME)/data/mariadb_data
   wp_data:
     name: "wordpress_data"
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: $(HOME)/data/wordpress
+      device: $(HOME)/data/wordpress_data
 
 services:
   nginx:
@@ -59,6 +59,6 @@ services:
     build: requirements/mariadb
     image: mariadb
     volumes:
-      - mariadb_data:/server/mariadb_data
+      - mariadb_data:/server/db_data
     networks:
       - inception
