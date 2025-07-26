@@ -1,4 +1,4 @@
-all: create_volumes up start
+all: create_volumes up
 
 create_volumes:
 	mkdir -p $(HOME)/data/mariadb_data
@@ -32,7 +32,7 @@ logs:
 	docker-compose -f srcs/docker-compose.yml logs
 
 clean: down
-	rm -rf $(HOME)/data
+	sudo rm -rf $(HOME)/data
 	docker-clean
 # 	docker volume rm $$(docker volume ls -q)
 # 	docker rmi $$(docker images -aq)
