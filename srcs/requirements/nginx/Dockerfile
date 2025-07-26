@@ -8,9 +8,13 @@ RUN apk -U upgrade && apk add nginx openssl envsubst
 
 RUN mkdir -p ssl
 
+# RUN openssl req -x509 -nodes -days 42 -newkey rsa:4096 \
+# -keyout /server/ssl/${LOGIN}.key -out /server/ssl/${LOGIN}.crt \
+# -subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/CN=${DOMAIN}"
+
 RUN openssl req -x509 -nodes -days 42 -newkey rsa:4096 \
--keyout /server/ssl/${LOGIN}.key -out /server/ssl/${LOGIN}.crt \
--subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/CN=${DOMAIN}"
+-keyout /server/ssl/albartol.key -out /server/ssl/albartol.crt \
+-subj "/C=ES/ST=Madrid/L=Madrid/O=42Madrid/CN=albartol.42.fr"
 
 COPY conf/nginx.conf nginx.conf
 
