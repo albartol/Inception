@@ -17,13 +17,13 @@ RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql --force
 
 COPY conf/database.sql database-env
 
-RUN envsubst '$DB_NAME,$MDB_USER,$MDB_USER_PASS,$MDB_ROOT_USER,$MDB_ROOT_PASS' \
-    < database-env > database.sql
+# RUN envsubst '$DB_NAME,$MDB_USER,$MDB_USER_PASS,$MDB_ROOT_USER,$MDB_ROOT_PASS' \
+#     < database-env > database.sql
 
-ENTRYPOINT [ "mariadbd", "--user=mysql", "--init-file=/server/database.sql" ]
+# ENTRYPOINT [ "mariadbd", "--user=mysql", "--init-file=/server/database.sql" ]
 
-# COPY tools/script.sh script.sh
+COPY tools/script.sh script.sh
 
-# RUN chmod +x script.sh
+RUN chmod +x script.sh
 
-# CMD [ "./script.sh" ]
+CMD [ "./script.sh" ]
