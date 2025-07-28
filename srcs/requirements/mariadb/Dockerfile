@@ -8,17 +8,17 @@ RUN apk -U upgrade && apk add mariadb mariadb-client envsubst
 
 COPY conf/mariadb.cnf /etc/my.cnf.d/mariadb-server.cnf
 
-COPY conf/database.sql database.sql
-
-RUN mkdir -p mysql && chmod 777 mysql
+RUN mkdir -p /run/mysqld && mkdir -p /var/lib/mysql && chmod 777 /run/mysqld \
+&& chmod 777 /var/lib/mysql
 
 RUN adduser mysql www-data && adduser -D www-data -G www-data
 
-RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/server/mysql --force
+RUN /usr/bin/mariadb-install-db --user=mysql --datadir=/var/lib/mysql --force
 
-RUN mv database.sql database-env
+COPY conf/database.sql database-env
 
-RUN envsubst < database-env > database.sql
+RUN envsubst '$DB_NAME,$MDB_USER,$MDB_USER_PASS,$MDB_ROOT_USER,$MDB_ROOT_PASS' \
+    < database-env > database.sql
 
 ENTRYPOINT [ "mariadbd", "--user=mysql", "--init-file=/server/database.sql" ]
 

@@ -50,6 +50,6 @@ services:
     env_file: ./.env
     restart: always
     volumes:
-      - mariadb_data:/server/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
       - inception

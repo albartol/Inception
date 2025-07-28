@@ -4,8 +4,8 @@ EXPOSE 9000
 
 WORKDIR /server
 
-RUN apk -U upgrade && apk add php82 php82-fpm fcgi php82-cgi mysql-client \
-    php82-mysqli php82-phar
+RUN apk -U upgrade && apk add php82 php82-fpm php82-cgi php82-mysqli \
+    php82-phar fcgi mysql-client
 
 RUN ln -s /usr/bin/php82 /usr/bin/php
 
